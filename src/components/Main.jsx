@@ -34,7 +34,7 @@ const columns = [
 ];
 
 function Main() {
-  const [searchQuery, setSearchQuery] = useState("quis");
+  const [searchQuery, setSearchQuery] = useState("");
   const [todos, setTodos] = useState([]);
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -61,7 +61,7 @@ function Main() {
           10 * (page - 1)
         }&_limit=${pageSize}`
       );
-      console.log(res);
+      
 
       setPagination({
         ...pagination,
@@ -75,7 +75,7 @@ function Main() {
       const data = await res.json();
 
       if (data.length === 0) throw new Error("Todo not found");
-      console.log(data);
+      
 
       const emptyRow = {
         id: "Empty",
@@ -94,9 +94,6 @@ function Main() {
         }))
       );
     } catch (error) {
-      console.log("Error caught:", error);
-      console.log("Error message:", error.message);
-
       setError(`${error.message} ⛔`);
     } finally {
       setIsLoading(false);
@@ -111,7 +108,7 @@ function Main() {
     <div className="container">
       <Search
         input={{ style: { width: "100px" } }}
-        placeholder="input search text"
+        placeholder="Search..."
         size="small"
         loading={isLoading}
         value={searchQuery}
